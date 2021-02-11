@@ -1,7 +1,6 @@
 import requests
 
 from pathlib import Path
-from pprint import pprint
 
 
 def download_picture(url, path, filename):
@@ -25,7 +24,6 @@ def fetch_spacex_last_launch(links, path):
 
 
 def display_links(url):
-    link_list = []
     response = requests.get(url)
     response.raise_for_status()
     list_info = response.json()['image_files']
