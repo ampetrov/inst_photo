@@ -1,7 +1,6 @@
 import requests
 
 from pathlib import Path
-from pprint import pprint
 
 
 def download_picture(url, path, filename):
@@ -35,15 +34,23 @@ def get_links_hubble(url):
     return links
 
 
-def display_expansion(url):
+def get_expansion(url):
     link = url.split('.')
-    print("File format: {}.".format(link[-1]))
+    exp = link[-1]
+    return exp
+
+
+def get_id(url):
+    link = url.split('/')
+    id = link[-2]
+    return id
 
 
 def get_pictures_hubble(links, path):
-    for link_number, link in enumerate(links):
-        link_number += 1
-        download_picture(link, path, filename="hubble{}.jpeg".format(link_number))
+    for link in links:
+        expansion = get_expansion(link)
+        id = get_id(link)
+        download_picture(link, path, filename="{}.{}".format(id, expansion))
 
 
 path_images = r"e:\Python\DVMN2\photo_inst\venv\Include\inst_photo\images\\"
@@ -53,8 +60,5 @@ url_spacex = "https://api.spacexdata.com/v4/launches/latest"
 url_hubblesite = "http://hubblesite.org/api/v3/image/1"
 
 # fetch_spacex_last_launch(get_links_spacex(url_spacex), path_images)
-# pprint(get_links_hubble(url_hubblesite))
-
-url_picture = "https://imgsrc.hubblesite.org/hvi/uploads/image_file/image_attachment/2/full_tif.tif"
-# display_expansion(url_picture)
+# get_expansion(url_picture)
 get_pictures_hubble(get_links_hubble(url_hubblesite), path_images)
