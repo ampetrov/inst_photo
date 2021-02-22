@@ -18,12 +18,16 @@ def get_link(url):
     return links
 
 
+# Подумай над названием функции(fetch_spacex_last_launch).
+def fetch_spacex_last_launch(links, path):
+    for link_number, link in enumerate(links):
+        link_number += 1
+        download_picture(link, path, filename="spacex{}.jpeg".format(link_number))
+
+
 Path(r"e:\Python\DVMN2\photo_inst\venv\Include\inst_photo\\Test").mkdir(parents=True, exist_ok=True)
 
-url = "https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg"
 url_spacex = "https://api.spacexdata.com/v4/launches/latest"
 path = r"e:\Python\DVMN2\photo_inst\venv\Include\inst_photo\Test\\"
 
-# download_picture(url, path, filename="hubble.jpeg")
-show = get_link(url_spacex)
-pprint(show)
+fetch_spacex_last_launch(get_link(url_spacex), path)
